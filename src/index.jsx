@@ -9,7 +9,7 @@ class marvelMediaApplication extends React.Component {
     render() {
         return (
             <div className="marvel-media">
-                <div>Good morening</div>
+                <div>Good morning Marvel world!</div>
             </div>
         );
     }

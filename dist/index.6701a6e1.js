@@ -963,7 +963,7 @@ class marvelMediaApplication extends _reactDefault.default.Component {
                     lineNumber: 12
                 },
                 __self: this,
-                children: "Good morening"
+                children: "Good morning Marvel world!"
             })
         }));
     }
