@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import MainView from './components/main-view/main-view';
 
 // import statement to indicate that you need to bundle the './index.scss' 
 import './index.scss';
@@ -8,9 +9,7 @@ import './index.scss';
 class marvelMediaApplication extends React.Component {
     render() {
         return (
-            <div className="marvel-media">
-                <div>Good morning Marvel world!</div>
-            </div>
+            <MainView />
         );
     }
 }
