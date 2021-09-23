@@ -22890,6 +22890,8 @@ $parcel$ReactRefreshHelpers$35bf.prelude(module);
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MainView", ()=>MainView
+);
 var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
@@ -22903,20 +22905,20 @@ class MainView extends _reactDefault.default.Component {
                 {
                     _id: 1,
                     Title: 'Iron man',
-                    Description: 'Descr. 1...',
-                    ImagePath: '...'
+                    Description: 'After being held captive in an Afghan cave, billionaire engineer Tony Stark creats a unique weaponized suit of armor to fight evil.',
+                    ImagePath: '../img/ironman.jpg'
                 },
                 {
                     _id: 2,
                     Title: 'The Incredible Hulk',
-                    Description: 'Descr. 2...',
-                    ImagePath: '...'
+                    Description: 'Bruce Banner, a scientist on the run from the U.S. Government, must find a cure for the monster he turns into whenever he loses his temper.',
+                    ImagePath: '../img/theincrediblehulk.jpg'
                 },
                 {
                     _id: 3,
                     Title: 'Iron man 2',
-                    Description: 'Descr. 3...',
-                    ImagePath: '...'
+                    Description: 'With the world now aware of his identity as Iron Man, Tony Stark must contend with both his declining health and a vengeful mad man with ties to his father\'s legacy.',
+                    ImagePath: '../img/ironman2.jpg'
                 }
             ],
             selectedMovie: null
@@ -22953,14 +22955,24 @@ class MainView extends _reactDefault.default.Component {
                 lineNumber: 32
             },
             __self: this,
-            children: movies.map((movie)=>/*#__PURE__*/ _jsxRuntime.jsx(_movieCard.MovieCard, {
+            children: selectedMovie ? /*#__PURE__*/ _jsxRuntime.jsx(_movieView.MovieView, {
+                movie: selectedMovie,
+                onBackClick: (newSelectedMovie)=>{
+                    this.setSelectedMovie(newSelectedMovie);
+                },
+                __source: {
+                    fileName: "src/components/main-view/main-view.jsx",
+                    lineNumber: 34
+                },
+                __self: this
+            }) : movies.map((movie)=>/*#__PURE__*/ _jsxRuntime.jsx(_movieCard.MovieCard, {
                     movie: movie,
                     onMovieClick: (movie1)=>{
                         this.setSelectedMovie(movie1);
                     },
                     __source: {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 33
+                        lineNumber: 36
                     },
                     __self: this
                 }, movie._id)
@@ -23105,6 +23117,17 @@ class MovieView extends _reactDefault.default.Component {
                             children: movie.Description
                         })
                     ]
+                }),
+                /*#__PURE__*/ _jsxRuntime.jsx("button", {
+                    onClick: ()=>{
+                        onBackClick(null);
+                    },
+                    __source: {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 20
+                    },
+                    __self: this,
+                    children: "Back"
                 })
             ]
         }));
