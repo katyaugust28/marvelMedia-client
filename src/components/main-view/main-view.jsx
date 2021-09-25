@@ -13,13 +13,13 @@ export class MainView extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(https://marvel-media-api.herokuapp.com/movies)
-        .then(response => {
-            this.setState({ movies: response.data });
-        })
-                .catch(error => {
-                    console.log(error);
-                });
+        axios.get('https://marvel-media-api.herokuapp.com/movies')
+            .then(response => {
+                this.setState({ movies: response.data });
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 
     setSelectedMovie(newSelectedMovie) {
@@ -33,7 +33,7 @@ export class MainView extends React.Component {
 
         if (selectedMovie) return <MovieView movie={selectedMovie} />;
 
-        if (movies.length === 0) return <div className="main-view">The list is empty!</div>;
+        if (movies.length === 0) return <div className="main-view">Loading your movies...</div>;
 
         return (
             <div className="main-view">
