@@ -1,11 +1,11 @@
-import e from 'cors';
 import React, { useState } from 'react';
+import PropTypes from "prop-types";
 
 export function LoginView(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         console.log(username, password);
         /*send a request to the server for authentication later */
@@ -27,3 +27,11 @@ export function LoginView(props) {
         </form>
     );
 }
+
+LoginView.propTypes = {
+    user: PropTypes.shape({
+        username: PropTypes.string.isRequired,
+        password: PropTypes.string.isRequired
+    }),
+    onLoggedIn: PropTypes.func.isRequired
+};
