@@ -1,6 +1,7 @@
 import React from 'react';
 
 export class MovieView extends React.Component {
+
     render() {
         const { movie, genre, onBackClick } = this.props;
         return (
@@ -22,9 +23,9 @@ export class MovieView extends React.Component {
                     <span className="value">{movie.Description}</span>
                 </div>
                 {/*<div className="movie-genre">
-                    <span className="label">Genre: </span>
-                    <span className="value">{genre.Name}</span>
-                </div>*/}
+                        <span className="label">Genre: </span>
+                        <span className="value">{genre.Name}</span>
+                    </div>*/}
                 <div className="movie-director">
                     <span className="label">Director: </span>
                     <span className="value">{movie.Director.Name}</span>
