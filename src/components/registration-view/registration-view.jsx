@@ -36,7 +36,7 @@ export function RegistrationView(props) {
     );
 }
 
-RegisterView.propTypes = {
+RegistrationView.propTypes = {
     register: PropTypes.shape({
         username: PropTypes.string.isRequired,
         password: PropTypes.string.isRequired,
