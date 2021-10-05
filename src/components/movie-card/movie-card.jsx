@@ -34,6 +34,7 @@ MovieCard.propTypes = {
             Name: PropTypes.string.isRequired,
             Description: PropTypes.string,
         })
+        Featured: PropTypes.bool.isRequired
         //ImagePath: PropTypes.string,
 
     }).isRequired,
