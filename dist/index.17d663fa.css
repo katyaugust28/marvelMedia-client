@@ -15,16 +15,15 @@
 .app-container {
   padding: 30px;
 }
-* {
-  box-sizing: border-box;
-  margin: 10px;
-}
-
 .register {
   padding: 30px;
   border: 0.3px solid #1c3f74;
   box-shadow: 5px 5px 5px #1c3f74;
   border-radius: 15px;
+}
+
+div {
+  width: 100%;
 }
 
 
