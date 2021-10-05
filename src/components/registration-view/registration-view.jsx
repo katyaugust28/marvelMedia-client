@@ -18,7 +18,7 @@ export function RegistrationView(props) {
     };
 
     return (
-        <Form>
+        <Form className="register justify-content-md-center">
             <Form.Group controlID="formUsername">
                 <Form.Label>Username:</Form.Label>
                 <Form.Control type="text" value={username} onChange={(e) => setUsername(e.target.value)} />

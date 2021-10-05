@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
+import axios from 'axios';
+
 import './login-view.scss';
 
 export function LoginView(props) {
@@ -11,14 +13,21 @@ export function LoginView(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(username, password);
-        /*send a request to the server for authentication later */
-        /*call props.onLoggedIn(username) */
-        props.onLoggedIn(username);
+        axios.post('https://marvel-media-api.herokuapp.com/login', {
+            Username: username,
+            Password: password
+        })
+            .then(response => {
+                const data = response.data;
+                props.onLoggedIn(data);
+            })
+            .catch(e => {
+                console.log('no such user')
+            });
     };
 
     return (
-        <Form>
+        <Form className="login justify-content-md-center">
             <Form.Group controlId="formUsername">
                 <Form.Label>Username:</Form.Label>
                 <Form.Control type="text" onChange={e => setUsername(e.target.value)} />
