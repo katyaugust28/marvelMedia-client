@@ -28,12 +28,12 @@ export function LoginView(props) {
 
     return (
         <Form className="login justify-content-md-center">
-            <Form.Group controlId="formUsername">
+            <Form.Group id="formUsername">
                 <Form.Label>Username:</Form.Label>
                 <Form.Control type="text" onChange={e => setUsername(e.target.value)} />
             </Form.Group>
 
-            <Form.Group controlID="formPassword">
+            <Form.Group id="formPassword">
                 <Form.Label>Password:</Form.Label>
                 <Form.Control type="password" onChange={e => setPassword(e.target.value)} />
             </Form.Group>
