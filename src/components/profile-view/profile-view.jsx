@@ -30,8 +30,8 @@ export class ProfileView extends React.Component {
     // get user method
     getUser(token) {
         const username = localStorage.getItem('user');
-        axios.get('https://marvel-media-api.herokuapp.com/users/${username}', {
-            headers: { Authorization: 'Bearer ${token}' },
+        axios.get(`https://marvel-media-api.herokuapp.com/users/${username}`, {
+            headers: { Authorization: `Bearer ${token}` },
         })
             .then((response) => {
                 this.setState({
@@ -55,8 +55,8 @@ export class ProfileView extends React.Component {
 
 
         axios
-            .delete(`https://myflixbypartearroyo.herokuapp.com/users/${username}/movies/${movie._id}`, {
-                headers: { Authorization: 'Bearer ${token}' },
+            .delete(`https://marvel-media-api.herokuapp.com/users/${username}/movies/${movie._id}`, {
+                headers: { Authorization: `Bearer ${token}` },
             })
             .then(() => {
                 alert('Movie was removed');
@@ -65,9 +65,10 @@ export class ProfileView extends React.Component {
             .catch(function (error) {
                 console.log(error);
             })
+        // .then(() => window.location.reload());
     }
 
-    handleUpdate(e, newName, newUsername, newPassword, newEmail, newBirthdate) {
+    handleUpdate(e, newName, newUsername, newPassword, newEmail, newBirthday) {
         this.setState({
             validated: null,
         });
@@ -86,8 +87,8 @@ export class ProfileView extends React.Component {
         const token = localStorage.getItem('token');
         const username = localStorage.getItem('user');
 
-        axios.put('https://marvel-media-api.herokuapp.com/users/${username}', {
-            headers: { Authorization: 'Bearer ${token}' },
+        axios.put(`https://marvel-media-api.herokuapp.com/users/${username}`, {
+            headers: { Authorization: `Bearer ${token}` },
             data: {
                 Name: newName ? newName : this.state.Name,
                 Username: newUsername ? newUsername : this.state.Username,
@@ -106,7 +107,7 @@ export class ProfileView extends React.Component {
                     Birthday: response.data.Birthday,
                 });
                 localStorage.setItem('user', this.state.Username);
-                window.open('/users/${username}', '_self');
+                window.open(`/users/${username}`, '_self');
             })
             .catch(function (error) {
                 console.log(error);
@@ -138,14 +139,14 @@ export class ProfileView extends React.Component {
         const token = localStorage.getItem('token');
         const username = localStorage.getItem('user');
 
-        axios.delete('https://marvel-media-api.herokuapp.com/users/${username}', {
+        axios.delete(`https://marvel-media-api.herokuapp.com/users/${username}`, {
             headers: { Authorization: `Bearer ${token}` },
         })
             .then(() => {
                 localStorage.removeItem('user');
                 localStorage.removeItem('token');
                 alert('Your account has been deleted.');
-                window.open('/', '_self');
+                window.open(`/`, '_self');
             })
             .catch((e) => {
                 console.log(e);
@@ -159,7 +160,7 @@ export class ProfileView extends React.Component {
         return (
             <Row className="profile-view">
                 <Card className="profile-card">
-                    <h2>Your Favorites Movies</h2>
+                    <h2>Your Favorite Movies</h2>
                     <Card.Body>
                         {FavoriteMovies.length === 0 && <div className="text-center">Empty.</div>}
 
