@@ -77,7 +77,14 @@ export class MainView extends React.Component {
 
         return (
             <Router>
-                <NavBar user={user} />
+                <Navbar bg="dark" variant="dark">
+                    <Container>
+                        <Navbar.Brand href="https://marvel-media-api.herokuapp.com/movies">Marvel Media</Navbar.Brand>
+                        <Nav className="me-auto">
+                            <Nav.Link href="https://marvel-media-api.herokuapp.com/users/:Username">Profile</Nav.Link>
+                        </Nav>
+                    </Container>
+                </Navbar>
                 <Row className="main-view justify-content-md-center">
 
                     <Route exact path="/" render={() => {
