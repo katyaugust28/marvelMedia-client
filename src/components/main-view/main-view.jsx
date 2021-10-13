@@ -31,6 +31,7 @@ export class MainView extends React.Component {
             });
             this.getMovies(accessToken);
         }
+
     }
 
     onRegister(register) {
@@ -126,13 +127,13 @@ export class MainView extends React.Component {
                         </Col>
                     }} />
 
-                    <Route path="/movies/genres/:Id" render={({ match, history }) => {
+                    <Route path="/movies/genres/:name" render={({ match, history }) => {
                         if (!user) return <Col>
                             <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
                         </Col>
                         if (movies.length === 0) return <div className="main-view" />;
                         return <Col md={8}>
-                            <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre} onBackClick={() => history.goBack()} />
+                            <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre} onBackClick={() => history.goBack()} movies={movies} />
                         </Col>
                     }} />
 

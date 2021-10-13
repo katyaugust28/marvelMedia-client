@@ -10,7 +10,8 @@ import './movie-view.scss';
 export class MovieView extends React.Component {
 
     render() {
-        const { movie, genre, onBackClick } = this.props;
+        const { movie, onBackClick } = this.props;
+
         return (
             <div className="movie-view">
                 <div className="movie-poster">
@@ -34,6 +35,7 @@ export class MovieView extends React.Component {
                     <Link to={`/genres/${movie.Genre.Name}`}>
                         <Button variant="link">Genre: </Button>
                     </Link>
+                    <span className="value">{movie.Genre.Name}</span>
                 </div>
                 <div className="movie-director">
                     <Link to={`/directors/${movie.Director.Name}`}>
@@ -46,3 +48,18 @@ export class MovieView extends React.Component {
         );
     }
 }
+
+MovieView.propTypes = {
+    movie: propTypes.shape({
+        Title: propTypes.string.isRequired,
+        Description: propTypes.string.isRequired,
+        ImagePath: propTypes.string.isRequired,
+        Featured: propTypes.bool,
+        Genre: propTypes.shape({
+            Name: propTypes.string.isRequired
+        }),
+        Director: propTypes.shape({
+            Name: propTypes.string.isRequired
+        }),
+    }).isRequired
+};
