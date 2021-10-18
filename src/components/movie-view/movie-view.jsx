@@ -9,9 +9,26 @@ import './movie-view.scss';
 
 export class MovieView extends React.Component {
 
+    addFavorite(movie) {
+        const token = localStorage.getItem("token");
+        const user = localStorage.getItem("user");
+        axios
+            .post(
+                `https://marvel-media-api.herokuapp.com/users/${user}` +
+                "/movies/" +
+                this.props.movie._id,
+                {},
+                { headers: { Authorization: `Bearer ${token}` } }
+            )
+            .then((response) => {
+                console.log(response);
+                alert(this.props.movie.Title + " has been added to your favorites!");
+            });
+    }
+
     render() {
         const { movie, onBackClick } = this.props;
-
+        console.log(movie)
         return (
             <div className="movie-view">
                 <div className="movie-poster">
@@ -31,19 +48,24 @@ export class MovieView extends React.Component {
                     <span className="label">Description: </span>
                     <span className="value">{movie.Description}</span>
                 </div>
-                <div className="movie-genre">
+                {/* <div className="movie-genre">
                     <Link to={`/genres/${movie.Genre.Name}`}>
                         <Button variant="link">Genre: </Button>
                     </Link>
                     <span className="value">{movie.Genre.Name}</span>
-                </div>
+                </div> */}
                 <div className="movie-director">
                     <Link to={`/directors/${movie.Director.Name}`}>
                         <Button variant="link">Director: </Button>
                     </Link>
                     <span className="value">{movie.Director.Name}</span>
                 </div>
-                <button onClick={() => { onBackClick(null); }}>Back</button>
+                <Button className="font-weight-bold mr-3"
+                    onClick={() => this.addFavorite(movie)}
+                >
+                    + Add To Favorites
+                </Button>
+                <Button variant="dark" onClick={() => { onBackClick(null); }}>Back</Button>
             </div>
         );
     }

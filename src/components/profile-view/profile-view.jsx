@@ -1,12 +1,12 @@
-import React from 'react';
-import axios from 'axios';
-import PropTypes from 'prop-types';
-import { Button, Card, CardDeck, Form, Row } from 'react-bootstrap';
-import './profile-view.scss';
+import React from 'react'
+import axios from 'axios'
+import PropTypes from 'prop-types'
+import { Button, Card, CardDeck, Form, Row } from 'react-bootstrap'
+import './profile-view.scss'
 
 export class ProfileView extends React.Component {
     constructor() {
-        super();
+        super()
 
         this.state = {
             Name: null,
@@ -16,23 +16,23 @@ export class ProfileView extends React.Component {
             Birthday: null,
             FavoriteMovies: [],
             validated: null,
-        };
-    }
-
-    componentDidMount() {
-        const accessToken = localStorage.getItem('token');
-        if (accessToken !== null) {
-            this.getUser(accessToken);
         }
     }
 
+    componentDidMount() {
+        const accessToken = localStorage.getItem('token')
+        if (accessToken !== null) {
+            this.getUser(accessToken)
+        }
+    }
 
     // get user method
     getUser(token) {
-        const username = localStorage.getItem('user');
-        axios.get(`https://marvel-media-api.herokuapp.com/users/${username}`, {
-            headers: { Authorization: `Bearer ${token}` },
-        })
+        const username = localStorage.getItem('user')
+        axios
+            .get(`https://marvel-media-api.herokuapp.com/users/${username}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            })
             .then((response) => {
                 this.setState({
                     Name: response.data.Name,
@@ -41,198 +41,260 @@ export class ProfileView extends React.Component {
                     Email: response.data.Email,
                     Birthday: response.data.Birthday,
                     FavoriteMovies: response.data.FavoriteMovies,
-                });
+                })
             })
             .catch(function (error) {
-                console.log(error);
-            });
+                console.log(error)
+            })
     }
 
-
-    removeFavoriteMovie() {
-        const token = localStorage.getItem('token');
-        const username = localStorage.getItem('user');
-
+    removeFavoriteMovie(movie) {
+        const token = localStorage.getItem('token')
+        const username = localStorage.getItem('user')
 
         axios
-            .delete(`https://marvel-media-api.herokuapp.com/users/${username}/movies/${movie._id}`, {
-                headers: { Authorization: `Bearer ${token}` },
-            })
+            .delete(
+                `https://marvel-media-api.herokuapp.com/users/${username}/movies/${movie._id}`,
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                }
+            )
             .then(() => {
-                alert('Movie was removed');
-                this.componentDidMount();
+                alert(`${movie.Title} was removed`)
+                this.componentDidMount()
             })
             .catch(function (error) {
-                console.log(error);
+                console.log(error)
             })
-        // .then(() => window.location.reload());
+
     }
 
     handleUpdate(e, newName, newUsername, newPassword, newEmail, newBirthday) {
         this.setState({
             validated: null,
-        });
+        })
 
-        const form = e.currentTarget;
+        const form = e.currentTarget
         if (form.checkValidity() === false) {
-            e.preventDefault();
-            e.stopPropagation();
+            e.preventDefault()
+            e.stopPropagation()
             this.setState({
                 validated: true,
-            });
-            return;
+            })
+            return
         }
-        e.preventDefault();
+        e.preventDefault()
 
-        const token = localStorage.getItem('token');
-        const username = localStorage.getItem('user');
-
-        axios.put(`https://marvel-media-api.herokuapp.com/users/${username}`, {
-            headers: { Authorization: `Bearer ${token}` },
-            data: {
-                Name: newName ? newName : this.state.Name,
-                Username: newUsername ? newUsername : this.state.Username,
-                Password: newPassword ? newPassword : this.state.Password,
-                Email: newEmail ? newEmail : this.state.Email,
-                Birthday: newBirthday ? newBirthday : this.state.Birthday,
-            },
-        })
+        const token = localStorage.getItem('token')
+        const username = localStorage.getItem('user')
+        console.log(username, token)
+        axios
+            .put(`https://marvel-media-api.herokuapp.com/users/${username}`, {
+                headers: { Authorization: `Bearer ${token} ` },
+                data: {
+                    Name: newName ? newName : this.state.Name,
+                    Username: newUsername ? newUsername : this.state.Username,
+                    Password: newPassword ? newPassword : this.state.Password,
+                    Email: newEmail ? newEmail : this.state.Email,
+                    Birthday: newBirthday ? newBirthday : this.state.Birthday,
+                },
+            })
             .then((response) => {
-                alert('Saved Changes');
+                alert('Saved Changes')
                 this.setState({
                     Name: response.data.Name,
                     Username: response.data.Username,
                     Password: response.data.Password,
                     Email: response.data.Email,
                     Birthday: response.data.Birthday,
-                });
-                localStorage.setItem('user', this.state.Username);
-                window.open(`/users/${username}`, '_self');
+                })
+                localStorage.setItem('user', this.state.Username)
+                window.open(`/users/${username}`, '_self')
             })
             .catch(function (error) {
-                console.log(error);
-            });
+                console.log(error)
+            })
     }
     setName(input) {
-        this.Name = input;
+        this.Name = input
     }
 
     setUsername(input) {
-        this.Username = input;
+        this.Username = input
     }
 
     setPassword(input) {
-        this.Password = input;
+        this.Password = input
     }
 
     setEmail(input) {
-        this.Email = input;
+        this.Email = input
     }
 
     setBirthday(input) {
-        this.Birthday = input;
+        this.Birthday = input
     }
 
     handleDeleteUser(e) {
-        e.preventDefault();
+        e.preventDefault()
 
-        const token = localStorage.getItem('token');
-        const username = localStorage.getItem('user');
+        const token = localStorage.getItem('token')
+        const username = localStorage.getItem('user')
 
-        axios.delete(`https://marvel-media-api.herokuapp.com/users/${username}`, {
-            headers: { Authorization: `Bearer ${token}` },
-        })
+        axios
+            .delete(`https://marvel-media-api.herokuapp.com/users/${username}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            })
             .then(() => {
-                localStorage.removeItem('user');
-                localStorage.removeItem('token');
-                alert('Your account has been deleted.');
-                window.open(`/`, '_self');
+                localStorage.removeItem('user')
+                localStorage.removeItem('token')
+                alert('Your account has been deleted.')
+                window.open(`/`, '_self')
             })
             .catch((e) => {
-                console.log(e);
-            });
+                console.log(e)
+            })
     }
 
     render() {
-        const { FavoriteMovies, validated } = this.state;
-        const { movies } = this.props;
+        const { FavoriteMovies, validated } = this.state
+        const { movies } = this.props
 
         return (
-            <Row className="profile-view">
-                <Card className="profile-card">
+            <Row className='profile-view'>
+                <Card className='profile-card'>
                     <h2>Your Favorite Movies</h2>
                     <Card.Body>
-                        {FavoriteMovies.length === 0 && <div className="text-center">Empty.</div>}
+                        {FavoriteMovies.length === 0 && (
+                            <div className='text-center'>Empty.</div>
+                        )}
 
-                        <div className="favorite-movies ">
-                            {FavoriteMovies.length > 0 &&
-                                movies.map((movie) => {
-                                    if (movie._id === FavoriteMovies.find((favMovie) => favMovie === movie._id)) {
-                                        return (
-                                            <CardDeck className="movie-card-deck">
-                                                <Card className="favorites-item card-content" style={{ width: '16rem' }} key={movie._id}>
-                                                    <Card.Img style={{ width: '18rem' }} className="movieCard" variant="top" src={movie.ImageURL} />
+                        <div className='favorite-movies '>
+                            <CardDeck className='movie-card-deck'>
+                                {FavoriteMovies.length > 0 &&
+                                    movies.map((movie) => {
+                                        if (
+                                            movie._id ===
+                                            FavoriteMovies.find((favMovie) => favMovie === movie._id)
+                                        ) {
+                                            return (
+                                                <Card
+                                                    className='favorites-item card-content'
+                                                    style={{ width: '16rem' }}
+                                                    key={movie._id}
+                                                >
+                                                    <Card.Img
+                                                        style={{ width: '18rem' }}
+                                                        className='movieCard'
+                                                        variant='top'
+                                                        src={movie.ImageURL}
+                                                    />
                                                     <Card.Body>
-                                                        <Card.Title className="movie-card-title">{movie.Title}</Card.Title>
-                                                        <Button size='sm' className='profile-button remove-favorite' variant='danger' value={movie._id} onClick={(e) => this.removeFavoriteMovie(e, movie)}>
+                                                        <Card.Title className='movie-card-title'>
+                                                            {movie.Title}
+                                                        </Card.Title>
+                                                        <Button
+                                                            size='sm'
+                                                            className='profile-button remove-favorite'
+                                                            variant='danger'
+                                                            value={movie._id}
+                                                            onClick={() =>
+                                                                this.removeFavoriteMovie(movie)
+                                                            }
+                                                        >
                                                             Remove
                                                         </Button>
                                                     </Card.Body>
                                                 </Card>
-                                            </CardDeck>
-                                        );
-                                    }
-                                })}
+                                            )
+                                        }
+                                    })}
+                            </CardDeck>
                         </div>
                     </Card.Body>
 
-                    <h1 className="section">Update Profile</h1>
+                    <h1 className='section'>Update Profile</h1>
                     <Card.Body>
-                        <Form noValidate validated={validated} className="update-form" onSubmit={(e) => this.handleUpdate(e, this.Name, this.Username, this.Password, this.Email, this.Birthdate)}>
-
-                            <Form.Group controlId="formName">
-                                <Form.Label className="form-label">Name</Form.Label>
-                                <Form.Control type="text" placeholder="Change Name" onChange={(e) => this.setName(e.target.value)} />
+                        <Form
+                            noValidate
+                            validated={validated}
+                            className='update-form'
+                            onSubmit={(e) =>
+                                this.handleUpdate(
+                                    e,
+                                    this.Name,
+                                    this.Username,
+                                    this.Password,
+                                    this.Email,
+                                    this.Birthdate
+                                )
+                            }
+                        >
+                            <Form.Group controlId='formName'>
+                                <Form.Label className='form-label'>Name</Form.Label>
+                                <Form.Control
+                                    type='text'
+                                    placeholder='Change Name'
+                                    onChange={(e) => this.setName(e.target.value)}
+                                />
                             </Form.Group>
 
-                            <Form.Group controlId="formBasicUsername">
-                                <Form.Label className="form-label">Username</Form.Label>
-                                <Form.Control type="text" placeholder="Change Username" onChange={(e) => this.setUsername(e.target.value)} />
+                            <Form.Group controlId='formBasicUsername'>
+                                <Form.Label className='form-label'>Username</Form.Label>
+                                <Form.Control
+                                    type='text'
+                                    placeholder='Change Username'
+                                    onChange={(e) => this.setUsername(e.target.value)}
+                                />
                             </Form.Group>
 
-                            <Form.Group controlId="formBasicPassword">
-                                <Form.Label className="form-label">
-                                    Password<span className="required">*</span>
+                            <Form.Group controlId='formBasicPassword'>
+                                <Form.Label className='form-label'>
+                                    Password<span className='required'>*</span>
                                 </Form.Label>
-                                <Form.Control type="password" placeholder="New Password" onChange={(e) => this.setPassword(e.target.value)} />
+                                <Form.Control
+                                    type='password'
+                                    placeholder='New Password'
+                                    onChange={(e) => this.setPassword(e.target.value)}
+                                />
                             </Form.Group>
 
-                            <Form.Group controlId="formBasicEmail">
-                                <Form.Label className="form-label">Email</Form.Label>
-                                <Form.Control type="email" placeholder="Change Email" onChange={(e) => this.setEmail(e.target.value)} />
+                            <Form.Group controlId='formBasicEmail'>
+                                <Form.Label className='form-label'>Email</Form.Label>
+                                <Form.Control
+                                    type='email'
+                                    placeholder='Change Email'
+                                    onChange={(e) => this.setEmail(e.target.value)}
+                                />
                             </Form.Group>
 
-                            <Form.Group controlId="formBasicBirthday">
-                                <Form.Label className="form-label">Birthday</Form.Label>
-                                <Form.Control type="date" placeholder="Change Birthday" onChange={(e) => this.setBirthday(e.target.value)} />
+                            <Form.Group controlId='formBasicBirthday'>
+                                <Form.Label className='form-label'>Birthday</Form.Label>
+                                <Form.Control
+                                    type='date'
+                                    placeholder='Change Birthday'
+                                    onChange={(e) => this.setBirthday(e.target.value)}
+                                />
                             </Form.Group>
 
-                            <Button variant='danger' type="submit">
+                            <Button variant='danger' type='submit'>
                                 Update
                             </Button>
 
                             <h3>Delete your Account</h3>
                             <Card.Body>
-                                <Button variant='danger' onClick={(e) => this.handleDeleteUser(e)}>
+                                <Button
+                                    variant='danger'
+                                    onClick={(e) => this.handleDeleteUser(e)}
+                                >
                                     Delete Account
                                 </Button>
                             </Card.Body>
                         </Form>
-
                     </Card.Body>
                 </Card>
-            </Row >
-        );
+            </Row>
+        )
     }
 }
 
@@ -248,4 +310,4 @@ ProfileView.propTypes = {
         Email: PropTypes.string.isRequired,
         Birthday: PropTypes.string,
     }),
-};
+}

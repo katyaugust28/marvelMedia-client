@@ -7,23 +7,23 @@ export class DirectorView extends React.Component {
 
     render() {
         const { movie, onBackClick, director } = this.props;
-        console.log("higigoi3ifiohohh"
+        console.log('director ', director)
         return (
             <div className="director-view">
 
                 <div className="director-name">
                     <Badge bg="primary">
                         <h1>
-                            <span className="value">{JSON.stringify(movie)}</span>
+                            <span className="value">{director.Name}</span>
                         </h1>
                     </Badge>
                 </div>
                 <div className="director-bio">
-                    <span className="value">{movie.Director.Bio}</span>
+                    <span className="value">{director.Bio}</span>
                 </div>
 
                 <div className="director-birthyear">
-                    <span className="value">{movie.Director.Birthyear}</span>
+                    <span className="value">{director.Birthyear}</span>
                 </div>
 
                 <Button variant="primary" onClick={() => { onBackClick(null); }}>Back</Button>
@@ -33,12 +33,12 @@ export class DirectorView extends React.Component {
     }
 }
 
-// DirectorView.propTypes = {
-//     Director: propTypes.shape({
-//         Name: propTypes.string.isRequired,
-//         Bio: propTypes.string.isRequired,
-//         Birthyear: propTypes.string.isRequired,
-//     }).isRequired
-// };
+DirectorView.propTypes = {
+    Director: propTypes.shape({
+        Name: propTypes.string.isRequired,
+        Bio: propTypes.string.isRequired,
+        Birthyear: propTypes.string.isRequired,
+    }).isRequired
+};
 
 export default DirectorView;
