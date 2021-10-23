@@ -230,14 +230,6 @@ export class ProfileView extends React.Component {
                                 )
                             }
                         >
-                            <Form.Group controlId='formName'>
-                                <Form.Label className='form-label'>Name</Form.Label>
-                                <Form.Control
-                                    type='text'
-                                    placeholder='Change Name'
-                                    onChange={(e) => this.setName(e.target.value)}
-                                />
-                            </Form.Group>
 
                             <Form.Group controlId='formBasicUsername'>
                                 <Form.Label className='form-label'>Username</Form.Label>
