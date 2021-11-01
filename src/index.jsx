@@ -2,19 +2,25 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MainView from './components/main-view/main-view';
 import Container from 'react-bootstrap/Container';
-
-import './index.scss';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import moviesApp from './reducers/reducers';
+import { devToolsEnhancer } from 'redux-devtools-extension';
 
 // import statement to indicate that you need to bundle the './index.scss' 
 import './index.scss';
+
+const store = createStore(moviesApp, devToolsEnhancer());
 
 //main componenet (will eventually use all the others)
 class marvelMediaApplication extends React.Component {
     render() {
         return (
-            <Container>
-                <MainView />
-            </Container>
+            <Provider store={store}>
+                <Container>
+                    <MainView />
+                </Container>
+            </Provider>
         );
     }
 }
